@@ -124,3 +124,18 @@ Promise.all(coasters.map(coaster => Park.create(coaster.park).then(park => park.
     .then(findParks => Promise.all(findParks).then(coasters => coasters.map(coaster => Coaster.create(coaster))))
     .then(savedCoasters => Promise.all(savedCoasters).then(coasters => coasters.forEach(coaster => console.log(`Montaña rusa ${coaster.name} creada`))).then(() => mongoose.connection.close()))
     .catch(error => console.log('Error: ', error))
+
+Coaster.deleteMany().then(() => {
+    Coaster.insertMany(coaster).then(coastersCreated => {
+        console.log("I have finished!");
+        process.exit(0);
+    });
+});
+
+
+Park.deleteMany().then(() => {
+    Park.insertMany(park).then(parkCreated => {
+        console.log("I have finished!");
+        process.exit(0);
+    });
+});
